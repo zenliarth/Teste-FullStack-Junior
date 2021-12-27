@@ -78,9 +78,36 @@ const pessoas = [
 
 // TODO implementar função assíncrona e anônima separarPorIdade
 
+const separarPorIdade = async (pessoas) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const nomesIdadePar = [];
+      const nomesIdadeImpar = [];
+      for (let i = 0; i < pessoas.length; i++) {
+        if (pessoas[i].idade % 2 === 0) {
+          nomesIdadePar.push(pessoas[i].nome);
+        } else {
+          nomesIdadeImpar.push(pessoas[i].nome);
+        }
+      }
+      const ordenarIdadeParCrescente = nomesIdadePar.sort();
+      const ordenarIdadeImparCrescente = nomesIdadeImpar.sort();
+      resolve({
+        nomesIdadePar: nomesIdadePar.length,
+        nomesIdadeImpar: nomesIdadeImpar.length,
+        ordenarIdadeParCrescente,
+        ordenarIdadeImparCrescente,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 separarPorIdade(pessoas).then((resposta) => {
+  console.log(resposta);
+});
   // TODO imprimir no console a quantidade de nomes de pessoas com idade par. Saída esperada: 7
   // TODO imprimir no console a quantidade de nomes de pessoas com idade impar. Saída esperada: 7
   // TODO imprimir no console a os nomes de pessoas com idade par ordenados alfabeticamente. Saída esperada: ['Adriana', 'Bruno', 'Claudio', 'Flavia', 'Jaison', 'Marcia', 'Rafael']
   // TODO imprimir no console a os nomes de pessoas com idade ímpar ordenados alfabeticamente. Saída esperada: ['Ambrosina', 'André', 'Brenda', 'Carlinhos', 'Edenilson', 'José', 'Nivea']
-});
